@@ -1,0 +1,22 @@
+name: ESP32 Pipeline (Build,Deploy,Test)
+on: [push]
+jobs:
+  Pipeline:
+    runs-on: self-hosted
+    env:
+      ESP32_HOSTNAME: 192.168.178.85
+    steps:
+
+      - name: Clone repository
+        uses: actions/checkout@master
+        with:
+          ref: ${{github.ref}}
+          
+      - name: Build deployment artifact
+        run: docker build -t pipeline .
+
+      - name: Deploy Over-The-Air update
+        run: docker run pipeline http --ignore-stdin --timeout=60 --form http://${{env.ESP32_HOSTNAME}}/update upload@/opt/esp32/.pio/build/firebeetle32/firmware.bin
+
+      - name: Run integration tests
+        run: docker run --workdir /opt/integrationtests pipeline ./gradlew clean test -Desp32_hostname="${{env.ESP32_HOSTNAME}}"
