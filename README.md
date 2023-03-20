@@ -45,10 +45,10 @@ The [gradle project](software/integrationtests) included in this repository impl
 The integration tests will build and execute from within the docker container after a successful over the air update.
 
 ## Get Started
-* Fork this repository
+* Create a new github repository from this repository template
 * Import ESP32 project within PlatformIO
 * Configure WIFI credentials in [main.cpp](software/esp32/src/main.cpp)
-* Upload sketch to ESP32
+* Manually upload project to ESP32
 * Insert local IP address of ESP32 into [pipeline.yml](.github/workflows/pipeline.yml)
 * Connect a self-hosted github action runner to the repository (with docker installed)
 * Commit and push the changes in main.cpp (WIFI Credentials) and pipeline.yml (IP address) to the repository 
