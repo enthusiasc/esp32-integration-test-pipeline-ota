@@ -6,6 +6,8 @@ This repository includes a [PlatformIO](https://docs.platformio.org/en/latest/wh
 
 
 ## Github Actions Pipeline  
+![esp32-pipeline](https://user-images.githubusercontent.com/84862844/226271916-3ffa97bb-177d-41b4-a48e-3b291f5e7295.png)
+
 The idea is to connect a [self-hosted github action runner](https://docs.github.com/en/actions/hosting-your-own-runners/about-self-hosted-runners) to the github repository. The self-hosted runner uses [docker](https://www.docker.com/get-started) to build and deploy the firmware to the ESP32 microcontroller. A successful deployment will trigger the execution of a java based integration test on the HTTP API of the ESP32 to validate the device is behaving properly. This requires the ESP32 and the self-hosted runner to be in the same local network. The self-hosted runner is required to have docker installed. This pipeline was tested for Linux(x64), Windows(x64) and Mac(M1) based self-hosted github action runners.
 
 ### Pipeline configuration
@@ -49,6 +51,8 @@ The integration tests will build and execute from within the docker container af
 * Upload sketch to ESP32
 * Insert local IP address of ESP32 into [pipeline.yml](.github/workflows/pipeline.yml)
 * Connect a self-hosted github action runner to the repository (with docker installed)
-* Commit and push the changes in main.cpp and pipeline.yml to the repository 
+* Commit and push the changes in main.cpp (WIFI Credentials) and pipeline.yml (IP address) to the repository 
 * Benefit from the automated build, deployment and integration testing of the ESP32 sketch
+
+![image](https://user-images.githubusercontent.com/84862844/226272516-b6d2e69b-55d4-4e6d-aed5-5257ddcaa4bf.png)
 
